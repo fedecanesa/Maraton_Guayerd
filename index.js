@@ -409,23 +409,27 @@ select_horarios.appendChild(option_horario_noche);
 //Agrego el select al formulario
 form.appendChild(label_horarios);
 form.appendChild(select_horarios);
+
 //-----------------------------------------------------------
- 
  
 //Creo el select de productos
 let select_productos = document.createElement("select");
 select_productos.setAttribute("id", "productos");
 select_productos.setAttribute("name", "productos");
 select_productos.required = "true";
+
 let option_producto_creditos = document.createElement("option");
 option_producto_creditos.value = "creditos";
 option_producto_creditos.innerText = "Creditos";
+
 let option_producto_celular = document.createElement("option");
 option_producto_celular.value = "celular";
 option_producto_celular.innerText = "Celular";
+
 let option_producto_viajes = document.createElement("option");
 option_producto_viajes.value = "viajes";
 option_producto_viajes.innerText = "Viajes";
+
 let option_producto_seguros = document.createElement("option");
 option_producto_seguros.value = "seguros";
 option_producto_seguros.innerText = "Seguros";
@@ -447,28 +451,29 @@ select_productos.appendChild(option_producto_seguros);
 //Agrego el select al formulario
 form.appendChild(label_productos);
 form.appendChild(select_productos);
+
 //-----------------------------------------------------------
- 
- 
+  
 //Creo el boton Guardar
 let boton_guardar = document.createElement("button");
 boton_guardar.setAttribute("type", "submit");
 boton_guardar.setAttribute("id" , "boton-guardar")
 boton_guardar.innerText = "Guardar";
 form.appendChild(boton_guardar);
+
 //-----------------------------------------------------------
- 
- 
 //Creo el boton Finalizar
+
 let boton_finalizar = document.createElement("button");
 boton_finalizar.setAttribute("type", "submit");
 boton_finalizar.setAttribute("id", "boton-finalizar");
 boton_finalizar.innerText = "Finalizar";
 form.appendChild(boton_finalizar);
+
 //-----------------------------------------------------------
  
- 
 // Definicion de variables y constantes
+
 const guardar = document.querySelector("#boton-guardar");
 const finalizar = document.querySelector("#boton-finalizar");
 const ej10_resultados = document.querySelector("div.ej10-resultado");
@@ -483,20 +488,21 @@ let producto = document.querySelector("#productos");
 const CONTACTS_LS = "contactos";
  
  
-//Se inicializan las variables que se encuentran guardadas en el LS
+//Se inicializan las variables que se encuentran guardadas en el LS.
 let contactsFromLS;
 
 //-----------------------------------------------------------
  
- 
 //Eventos
+
 guardar.addEventListener("click" , guardarDatosContacto);
 finalizar.addEventListener("click" , finalizarHandler);
 telefono.addEventListener("blur", validarTelefono);
+
 //-----------------------------------------------------------
  
- 
 //Funciones Handler
+
 function guardarDatosContacto(e)
 {
   e.preventDefault();
@@ -530,7 +536,36 @@ function guardarDatosContacto(e)
   }
  
 }
- 
+
+function finalizarHandler(e)
+{
+  e.preventDefault();
+  mostrarArray();
+}
+
+function validarTelefono()
+{
+  if ( isNaN(telefono.value) )
+  {
+    telefono.setCustomValidity("Formato incorrecto.");
+  }
+}
+
+
+//Otras funciones
+
+function guardarDatosEnLS(array)
+{
+  let string = JSON.stringify(array);
+  localStorage.setItem(CONTACTS_LS , string);
+}
+
+function crearContacto (nombre , email , telefono , horario , producto)
+{
+  let contacto = Object.assign({nombre, email, telefono, horario, producto}); 
+  return contacto;
+}
+
 function limpiarCampos()
 {
   nombre.value = "";
@@ -560,11 +595,6 @@ function existeEmail(mail, array)
   return respuesta;
 }
  
-function finalizarHandler(e)
-{
-  e.preventDefault();
-  mostrarArray();
-}
 function mostrarArray()
 {
   contactsFromLS = localStorage.getItem(CONTACTS_LS);
@@ -606,24 +636,6 @@ function mostrarArray()
  
 }
  
-//Otras funciones 
-function guardarDatosEnLS(array)
-{
-  let string = JSON.stringify(array);
-  localStorage.setItem(CONTACTS_LS , string);
-}
-function crearContacto (nombre , email , telefono , horario , producto)
-{
-  let contacto = Object.assign({nombre, email, telefono, horario, producto}); 
-  return contacto;
-}
  
- 
-function validarTelefono()
-{
-  if ( isNaN(telefono.value) )
-  {
-    telefono.setCustomValidity("Formato incorrecto.");
-  }
-}
+
 

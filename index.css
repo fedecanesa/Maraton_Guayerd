@@ -31,3 +31,15 @@ body {
   font-size: large;
   color: black;
 }
+
+input
+{
+  display: block;
+  margin: 0.5em 0;
+}
+
+select
+{
+  display: block;
+  margin: 0.5em 0;
+}
